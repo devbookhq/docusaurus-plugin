@@ -1,7 +1,6 @@
 {
   "name": "@devbookhq/docusaurus-plugin",
   "version": "1.0.0",
-  "main": "lib/index.js",
   "description": "Devbook plugin for Docusaurus",
   "types": "src/theme-devbook.d.ts",
   "license": "SEE LICENSE IN LICENSE",
@@ -16,6 +15,9 @@
     "type": "git",
     "url": "https://github.com/devbookhq/docusaurus-plugin"
   },
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "umd": "lib/umd/index.js",
   "sideEffects": [
     "lib/theme/CodeBlock/*"
   ],
@@ -23,12 +25,10 @@
     "access": "public"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "fix": "npx eslint **/src/**/*.{ts,tsx,js} --fix",
-    "build": "tsc --build && node scripts/copyUntypedFiles.js",
-    "watch": "run-p -c copy:watch build:watch",
-    "build:watch": "tsc --build --watch",
-    "copy:watch": "node scripts/copyUntypedFiles.js --watch"
+    "prepublishOnly": "rollup -c",
+    "build": "rollup -c && node scripts/copyUntypedFiles.js",
+    "watch": "rollup -c -w",
+    "fix": "npx eslint **/src/**/*.{ts,tsx,js} --fix"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-rc.1",
@@ -42,8 +42,14 @@
   },
   "devDependencies": {
     "@docusaurus/types": "2.0.0-rc.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@types/buble": "^0.20.1",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup-plugin-polyfill-node": "^0.10.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.32.1"
   },
   "peerDependencies": {
     "react": "^16.8.4 || ^17.0.0 || ^18.0.0",
