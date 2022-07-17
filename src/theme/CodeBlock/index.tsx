@@ -1,6 +1,6 @@
 import React from 'react';
 import CodeBlock, { type Props } from '@theme-init/CodeBlock';
-//import './styles.css';
+import './styles.css';
 //import styled from '@stitches/react';
 import styled from 'styled-components';
 
